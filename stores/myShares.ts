@@ -22,12 +22,12 @@ export const useMySharesStore = defineStore('myShares', () => {
       const { getUserHeaders } = useUser()
       const headers = getUserHeaders()
       
-      const response = await $fetch<{ success: boolean; shares: UserShare[] }>('/api/my-shares', {
+      const response = await $fetch<{ success: boolean; data: UserShare[] }>('/api/my-shares', {
         headers
       })
       
       if (response.success) {
-        shares.value = response.shares
+        shares.value = response.data
       }
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to fetch shares'
