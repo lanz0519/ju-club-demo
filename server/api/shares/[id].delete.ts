@@ -35,7 +35,6 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    setResponseStatus(event, 204)
     return createApiSuccess(null, 'Share deleted successfully')
     
   } catch (error: any) {
