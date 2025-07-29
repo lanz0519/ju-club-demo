@@ -1,0 +1,17 @@
+node_modules
+.nuxt
+.output
+.env*
+.git
+.gitignore
+README.md
+CLAUDE.md
+docker-compose.yml
+Dockerfile
+.dockerignore
+coverage
+.nyc_output
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

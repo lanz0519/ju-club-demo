@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0.38
+    container_name: mysql_ju_club_demo
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=json_share_db
+    volumes:
+      # 数据持久化
+      - mysql_data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 3306:3306
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 5
+
+  app:
+    build: .
+    container_name: ju_club_demo_app
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:123456@mysql:3306/json_share_db
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  mysql_data:
